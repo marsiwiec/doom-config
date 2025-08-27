@@ -3,6 +3,10 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(setq user-full-name "Marcin Siwiec"
+      user-mail-address "mail@msiwiec.me"
+      user-mail-address "martin.siwiec@gmail.com"
+      user-mail-address "siwiec@if-pan.krakow.pl")
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
@@ -59,6 +63,37 @@
 ;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
 ;;   - Setting doom variables (which start with 'doom-' or '+').
 ;;
+;; =============== EMAIL ===========
+(after! mu4e
+  (auth-source-pass-enable)
+  (setq
+   auth-sources '(password-store)
+   mu4e-search-skip-duplicates  t
+   mu4e-date-format "%y/%m/%d"
+   mu4e-headers-date-format "%Y/%m/%d"
+   mu4e-change-filenames-when-moving t
+   mu4e-attachments-dir "~/Downloads"
+   message-kill-buffer-on-exit t
+
+   mu4e-root-maildir       "~/Maildir"   ;; top-level Maildir
+   ;; note that these folders below must start with /
+   ;; the paths are relative to maildir root
+   mu4e-refile-folder "/Archive"
+   mu4e-sent-folder   "/Sent"
+   mu4e-drafts-folder "/Drafts"
+   mu4e-trash-folder  "/Trash")
+
+  ;; this setting allows to re-sync and re-index mail
+  ;; by pressing U
+  (setq mu4e-get-mail-command  "mbsync -a")
+
+  (setq sendmail-program (executable-find "msmtp")
+	send-mail-function #'smtpmail-send-it
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-send-mail-function #'message-send-mail-with-sendmail))
+
+;; =================================
 ;; Here are some additional functions/macros that will help you configure Doom.
 ;;
 ;; - `load!' for loading external *.el files relative to this one
