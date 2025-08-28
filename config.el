@@ -25,9 +25,13 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Intel One Mono" :size 18)
-      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18))
-;;
+(setq doom-font (font-spec :family "IntoneMono NF" :size 20)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 20)
+      doom-symbol-font (font-spec :family "Symbols Nerd Font"))
+
+(use-package org-modern
+  :custom (org-modern-star 'replace))
+
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
